@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <property name="now" value="now()"/>
+    <property name="dateType" value="DATETIME"/>
+
+    <property name="author-gayan" value="Gayan Wickramarathna"/>
+
+    <changeSet id="1.0.1" author="${author-gayan}">
+        <createTable tableName="employee">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar(255)"/>
+            <column name="gender" type="varchar(15)"/>
+            <column name="dob" type="DATE"/>
+            <column name="status" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(100)"/>
+            <column name="created_on" type="${dateType}" defaultValueComputed="${now}"/>
+            <column name="updated_by" type="varchar(100)"/>
+            <column name="updated_on" type="${dateType}" defaultValueComputed="${now}"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="employee"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
